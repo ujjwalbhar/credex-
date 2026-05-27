@@ -1,27 +1,27 @@
-export type ToolInput = {
-  tool: string;
+﻿export interface AuditInput {
+  tools: ToolInput[];
+  teamSize: number;
+  primaryUseCase: 'coding' | 'writing' | 'data' | 'research' | 'mixed';
+}
+
+export interface ToolInput {
+  name: string;
   plan: string;
   monthlySpend: number;
   seats: number;
-};
+}
 
-export type AuditInput = {
-  tools: ToolInput[];
-  teamSize: number;
-  useCase: string;
-};
-
-export type Recommendation = {
+export interface Recommendation {
   tool: string;
   currentSpend: number;
   recommendedAction: string;
-  savings: number;
-  reason: string;
-};
-
-export type AuditResult = {
   monthlySavings: number;
-  annualSavings: number;
+  reason: string;
+}
+
+export interface AuditResult {
   recommendations: Recommendation[];
-  summary: string;
-};
+  totalMonthlySavings: number;
+  totalAnnualSavings: number;
+  summary?: string;
+}
