@@ -1,34 +1,34 @@
-import { AuditResult } from "@/src/types/audit";
+import { AuditResult } from '@/src/types/audit';
 
-export default function AuditResults({ result }: { result: AuditResult }) {
+interface Props {
+  result: AuditResult;
+}
+
+export default function AuditResults({ result }: Props) {
   return (
     <div className="space-y-6">
       <div className="rounded-xl border p-6">
         <h2 className="text-3xl font-bold">
-          ${result.monthlySavings}/mo saved
+          \/mo saved
         </h2>
 
         <p className="text-gray-500">
-          ${result.annualSavings}/year potential savings
+          \/year potential savings
         </p>
       </div>
 
-      {result.recommendations.map(
-        (rec: import("@/src/types/audit").Recommendation, index: number) => (
-          <div key={index} className="rounded-xl border p-4">
-            <h3 className="font-semibold">{rec.tool}</h3>
-
-            <p>{rec.recommendedAction}</p>
-
-            <p className="text-green-600">Save ${rec.savings}/month</p>
-
-            <p className="text-sm text-gray-500">{rec.reason}</p>
+      <div className="space-y-4">
+        {result.recommendations.map((rec, i) => (
+          <div key={i} className="rounded-xl border p-4">
+            <div className="flex justify-between items-center">
+              <h3 className="font-semibold text-lg">{rec.tool}</h3>
+              <span className="text-green-600 font-bold">Save \/mo</span>
+            </div>
+            <p className="text-sm text-gray-500 mt-1">Current spend: \/mo</p>
+            <p className="text-sm font-medium mt-2">{rec.recommendedAction}</p>
+            <p className="text-sm text-gray-400 mt-1">{rec.reason}</p>
           </div>
-        ),
-      )}
-
-      <div className="rounded-xl bg-gray-100 p-4">
-        <p>{result.summary}</p>
+        ))}
       </div>
     </div>
   );

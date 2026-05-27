@@ -1,4 +1,4 @@
-import { AuditInput, AuditResult, Recommendation } from "@/types/audit"
+import { AuditInput, AuditResult, Recommendation } from "@/src/types/audit"
 
 export function generateAudit(input: AuditInput): AuditResult {
   const recommendations: Recommendation[] = [];
@@ -32,13 +32,13 @@ export function generateAudit(input: AuditInput): AuditResult {
   }
 
   const monthlySavings = recommendations.reduce(
-    (acc, curr) => acc + curr.savings,
+    (acc, curr) => acc + (curr.savings ?? 0),
     0,
   );
 
   return {
-    monthlySavings,
-    annualSavings: monthlySavings * 12,
+    totalMonthlySavings: monthlySavings,
+    totalAnnualSavings: monthlySavings * 12,
     recommendations,
     summary:
       monthlySavings > 0
@@ -46,3 +46,5 @@ export function generateAudit(input: AuditInput): AuditResult {
         : "Your AI tooling stack already appears cost-efficient.",
   };
 }
+
+
